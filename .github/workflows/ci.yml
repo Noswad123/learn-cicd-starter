@@ -47,4 +47,8 @@ jobs:
         run: staticcheck ./...
 
       - name: go fmt
-        run: test -z $(go fmt ./...)
+        run: |
+          if [ -n "$(go fmt ./...)" ]; then
+            echo "Go code is not formatted properly. Run 'go fmt ./...'"
+            exit 1
+          fi
